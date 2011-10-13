@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script>!window.jQuery && document.write('<script src="js/jquery.js"><\/script>')</script>
+        <script src="js/jquery.animate.rotate.js"></script>
+        <script src="js/jquery.css.transform.patch.js"></script>
+    <style type="text/css">
+
+        #checkit {
+            height: 70px;
+            width:300px;
+            background:green;
+            overflow:hidden;
+            position:relative;
+        }
+
+        .box { padding:0; margin:0; width:300px; height:300px; diplay:block; position:absolute; top:0; left:0; }
+        .box img { position:absolute; left:90px; top:0; }
+        .boxContainer { width:300px; height:300px; }
+
+        img { width:100px; height:auto } 
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.box.two') .css('transform','rotate(120deg)');
+            $('.box.three') .css('transform','rotate(240deg)');
+            $('#checkit') .click(function() { $(this).find('.boxContainer').animate({rotate: '+=120deg'}, 800); });
+        });
+    </script>
+    </head>
+    <body> 
+        <p>diameter of 300px</p>
+        <p>currently 80</p>
+        <div id="checkit">
+            <div class="boxContainer">
+                <div class="box one"> <img src="img/1.jpg"/> </div>
+                <div class="box two"> <img src="img/2.jpg"/> </div>
+                <div class="box three"> <img src="img/3.jpg"/> </div>
+            </div>
+        </div> <!-- checkit -->
+        <pre>
+transform:rotate(60deg);
+-moz-transform:rotate(60deg); /* For Firefox */
+-webkit-transform:rotate(60deg); /* For Safari and Chrome */
+-o-transform:rotate(60deg); /* For Opera */
+        </pre>
+    </body>
+</html>
