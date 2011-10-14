@@ -7,29 +7,70 @@
         <script src="js/jquery.animate.rotate.js"></script>
         <script src="js/jquery.css.transform.patch.js"></script>
     <style type="text/css">
+        * { margin:0; padding:0;  }
+        #spinner img { width:120px; height:auto }
     </style>
     <script type="text/javascript">
-        $(document).ready(function() {
+(function($){ 
+    $.fn.extend({
+        devRoulette: function(options){
+            var defaults = {
+                // animatePadding:10,
+            };
+            var options = $.extend(defaults, options);
+            return this.each(function(){
+                var o = options; //use it by o.animatePadding
+                
+                //assign current element to var
+                var obj = $(this),
+                    bn = 3,                   // box number
+                    bw = 100,                 // box width
+                    bh = 35,                  // box height
+                    c = 360,                  // full circle
+                    t = c / ( 2 * bn ),       // theta, half of two midpoints, depending on number of boxes
+                    adj = bw / (tan(t) * 2 ), // get adjcent(inner radius) by opposite dvide by tan0
+                    //get outer radius
+                    fullHeight = adj + bh,                // inner radius + box height
+                    fullRadius = fullHeight/cos(t),       // adjcent divide cos0 = hypothenus
+                    containerSize = fullRadius * 2; // diameter
+                    
+
+                $('body').append('----inner----<br />');
+                $('body').append('bn ' + bn + '<br />');
+                $('body').append('bw ' + bw + '<br />');
+                $('body').append('bh ' + bh + '<br />');
+                $('body').append('c ' + c + '<br />');
+                $('body').append('t ' + t + '<br />');
+                $('body').append('adj ' + adj + '<br />');
+                $('body').append('----outer----<br />');
+                $('body').append('fullHeight ' + fullHeight + '<br />');
+                $('body').append('fullRadius ' + fullRadius + '<br />');
+                $('body').append('containerSize ' + r(containerSize) + '<br />');
+
+                $('body').append('sin ' + sin(1) + '<br />');
+                $('body').append('cos ' + cos(1) + '<br />');
+                $('body').append('tan ' + tan(1) + '<br />');
+
+            });
+
             // helper function
             function sin(theta) { return Math.sin(theta * Math.PI/180) } //soh
             function cos(theta) { return Math.cos(theta * Math.PI/180) } //cah
             function tan(theta) { return Math.tan(theta * Math.PI/180) } //toa
-
-            // define
-            var bn = 3, // number of boxes
-                bw = 100, //box width
-                bh = 35, //box height
-                //end optoins
-                c = 360,
-                t  = c / (2 * bn), // theta, equal angles depending on number of boxes
-                adj = bw / (tan(t) * 2 ), // get adjcent(inner radius) by opposite dvide by tan0
-                //get outer radius
-                fullHeight = adj + bh, // inner radius + box height
-                fullRadius = fullHeight/cos(t), // adjcent divide cos0 = hypothenus
-                rotateContainerSize = fullRadius * 2; // diameter
+            function r(r) { return Math.round(r) } // rounding
+        }
+    });
+})(jQuery); //end menu
+        $(document).ready(function() {
+            $('#spinner').devRoulette();
         });
     </script>
     </head>
     <body> 
+        <div id="spinner">
+            <img src="img/1.jpg"/>
+            <img src="img/2.jpg"/>
+            <img src="img/3.jpg"/>
+        </div> 
     </body>
 </html>
