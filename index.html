@@ -24,27 +24,50 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.box.two') .css('transform','rotate(120deg)');
-            $('.box.three') .css('transform','rotate(240deg)');
-            $('#checkit') .click(function() { $(this).find('.boxContainer').animate({rotate: '+=120deg'}, 800); });
+            // simplify calculations
+            function sin(theta) { return Math.sin(theta * Math.PI/180) }
+            function cos(theta) { return Math.cos(theta * Math.PI/180) }
+            function tan(theta) { return Math.tan(theta * Math.PI/180) }
+
+            // define
+            var c = 360,
+                bn = 3, // number of boxes
+                bw = 100, //box width
+                bh = 35, //box height
+                t  = c / (2 * bn), // theta, equal angles depending on number of boxes
+                adj = bw / (tan(t) * 2 ), // get adjcent(inner radius) by opposite dvide by tan0
+                //get outer radius
+                fullHeight = 
+
+            $('html').append(sin(1)+'<br />');
+            $('html').append(cos(1)+'<br />');
+            $('html').append(tan(1)+'<br />');
+            $('html').append(adj);
+
+            // testings
+            //$('.box.two') .css('transform','rotate(120deg)');
+            //$('.box.three') .css('transform','rotate(240deg)');
+            //$('#checkit') .click(function() { $(this).find('.boxContainer').animate({rotate: '+=120deg'}, 800); });
         });
     </script>
     </head>
     <body> 
-        <p>diameter of 300px</p>
-        <p>currently 80</p>
-        <div id="checkit">
-            <div class="boxContainer">
-                <div class="box one"> <img src="img/1.jpg"/> </div>
-                <div class="box two"> <img src="img/2.jpg"/> </div>
-                <div class="box three"> <img src="img/3.jpg"/> </div>
-            </div>
-        </div> <!-- checkit -->
-        <pre>
-transform:rotate(60deg);
--moz-transform:rotate(60deg); /* For Firefox */
--webkit-transform:rotate(60deg); /* For Safari and Chrome */
--o-transform:rotate(60deg); /* For Opera */
-        </pre>
+        <!--
+                <p>diameter of 300px</p>
+                <p>currently 80</p>
+                <div id="checkit">
+                    <div class="boxContainer">
+                        <div class="box one"> <img src="img/1.jpg"/> </div>
+                        <div class="box two"> <img src="img/2.jpg"/> </div>
+                        <div class="box three"> <img src="img/3.jpg"/> </div>
+                    </div>
+                </div> <!-- checkit 
+                <pre>
+        transform:rotate(60deg);
+        -moz-transform:rotate(60deg); /* For Firefox */
+        -webkit-transform:rotate(60deg); /* For Safari and Chrome */
+        -o-transform:rotate(60deg); /* For Opera */
+                </pre>
+        --!>
     </body>
 </html>
