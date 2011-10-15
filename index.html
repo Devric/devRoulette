@@ -9,6 +9,11 @@
     <style type="text/css">
         * { margin:0; padding:0;  }
         #spinner { position:relative; }
+        #spinner .boxparent {
+            width:100%;
+            height:100%;
+            position:absolute;
+        }
         #spinner .box { 
             width: 100px;
             height:60px;
@@ -62,11 +67,12 @@
                     height:r(diameter)
                 });
 
-                box 
+                box
                 .css({
                     'margin-left': r((diameter - bw ) / 2) // calculat left margin by (diameter - boxwidth) /2
                     })
-                .each(function(index){
+                .wrap('<div class="boxparent"></div>');
+                $('.boxparent').each(function(index){
                     var thisIndex = $(this).index(),
                         thisRotation = thisIndex * fullRotate;
                     $(this).css('transform','rotate( '+thisRotation+'deg)');
@@ -85,10 +91,8 @@
 
         $(document).ready(function() {
             $('#spinner').devRoulette();
-
-            //test
-           // $('.box.two') .css('transform','rotate(120deg)');
-           // $('.box.three') .css('transform','rotate(240deg)');
+            $('#spinner') .click(function() {
+            $(this).animate({rotate: '+=120deg'}, 800); });
         });
     </script>
     </head>
@@ -96,6 +100,7 @@
         <div id="spinner">
             <div class="box one"><img src="img/1.jpg"/></div>
             <div class="box two"><img src="img/2.jpg"/></div>
+            <div class="box three"><img src="img/3.jpg"/></div>
             <div class="box three"><img src="img/3.jpg"/></div>
         </div>
     </body>
