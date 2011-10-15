@@ -9,47 +9,55 @@
     <style type="text/css">
         * { margin:0; padding:0;  }
         #spinner img { width:120px; height:auto }
+        #spinner .box { 
+            width: 100px;
+            height:60px;
+            overflow:hidden;
+        }
     </style>
     <script type="text/javascript">
+
 (function($){ 
     $.fn.extend({
         devRoulette: function(options){
             var defaults = {
-                // animatePadding:10,
+                speed : 1000
             };
             var options = $.extend(defaults, options);
             return this.each(function(){
                 var o = options; //use it by o.animatePadding
                 
+
                 //assign current element to var
                 var obj = $(this),
-                    bn = 3,                   // box number
-                    bw = 100,                 // box width
-                    bh = 35,                  // box height
-                    c = 360,                  // full circle
-                    t = c / ( 2 * bn ),       // theta, half of two midpoints, depending on number of boxes
-                    adj = bw / (tan(t) * 2 ), // get adjcent(inner radius) by opposite dvide by tan0
-                    //get outer radius
-                    fullHeight = adj + bh,                // inner radius + box height
-                    fullRadius = fullHeight/cos(t),       // adjcent divide cos0 = hypothenus
-                    containerSize = fullRadius * 2; // diameter
+                    box = obj.find('.box'),
+                    bn = box.find('img').length,      // box number
+                    bw = box.width(),                 // box width
+                    bh = box.height(),                // box height
+                    c = 360;                          // full circle
                     
 
-                $('body').append('----inner----<br />');
-                $('body').append('bn ' + bn + '<br />');
-                $('body').append('bw ' + bw + '<br />');
-                $('body').append('bh ' + bh + '<br />');
-                $('body').append('c ' + c + '<br />');
-                $('body').append('t ' + t + '<br />');
-                $('body').append('adj ' + adj + '<br />');
-                $('body').append('----outer----<br />');
-                $('body').append('fullHeight ' + fullHeight + '<br />');
-                $('body').append('fullRadius ' + fullRadius + '<br />');
-                $('body').append('containerSize ' + r(containerSize) + '<br />');
+                if( bn <= 2 ) {} else { } // ============== todo
 
-                $('body').append('sin ' + sin(1) + '<br />');
-                $('body').append('cos ' + cos(1) + '<br />');
-                $('body').append('tan ' + tan(1) + '<br />');
+                // calculations
+                var fullRotate = c / bn,    // calculate number of equal rotation from the midpoint of each box
+                    theta = fullRotate / 2, // theta, half of two midpoints, depending on number of boxes
+
+                    //inner radius
+                    innerRadius = (bw / 2 )/ tan(theta),   // get adjcent(inner radius) by opposite dvide by tan0
+
+                    // get outer radius
+                    fullHeight = innerRadius + bh;         // inner radius + box height
+                    
+                    // get full radius
+                    fullRadius = fullHeight/sin(theta),    // adjcent divide cos0 = hypothenus
+                    diameter = fullRadius * 2;
+
+                $(this).css({  
+                    // print the container size
+                    width:r(diameter),
+                    height:r(diameter)
+                });
 
             });
 
@@ -61,6 +69,7 @@
         }
     });
 })(jQuery); //end menu
+
         $(document).ready(function() {
             $('#spinner').devRoulette();
         });
@@ -68,9 +77,9 @@
     </head>
     <body> 
         <div id="spinner">
-            <img src="img/1.jpg"/>
-            <img src="img/2.jpg"/>
-            <img src="img/3.jpg"/>
-        </div> 
+            <div class="box"><img src="img/1.jpg"/></div>
+            <div class="box"><img src="img/2.jpg"/></div>
+            <div class="box"><img src="img/3.jpg"/></div>
+        </div>
     </body>
 </html>
