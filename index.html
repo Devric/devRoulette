@@ -28,7 +28,9 @@
     $.fn.extend({
         devRoulette: function(options){
             var defaults = {
-                speed : 1000
+                speed : 1000,
+                next : '#next',
+                prev : '#prev'
             };
             var options = $.extend(defaults, options);
             return this.each(function(){
@@ -57,19 +59,21 @@
                     fullHeight = innerRadius + bh;         // inner radius + box height
                     
                     // get full radius
-                    fullRadius = fullHeight/sin(theta),    // adjcent divide cos0 = hypothenus
+                    fullRadius = fullHeight/cos(theta),    // adjcent divide cos0 = hypothenus
                     diameter = fullRadius * 2;
 
-                //positioning
+                // positioning
                 obj.css({  
                     // print the container size
-                    width:r(diameter),
-                    height:r(diameter)
+                    width:diameter,
+                    height:diameter,
+                    transform: 'rotate(0deg)'
                 });
 
+                // setup
                 box
                 .css({
-                    'margin-left': r((diameter - bw ) / 2) // calculat left margin by (diameter - boxwidth) /2
+                    'margin-left': (diameter - bw ) / 2 // calculat left margin by (diameter - boxwidth) /2
                     })
                 .wrap('<div class="boxparent"></div>');
                 $('.boxparent').each(function(index){
@@ -78,30 +82,46 @@
                     $(this).css('transform','rotate( '+thisRotation+'deg)');
                 });
 
+                // action
+                $(o.next).click(function() {
+                    if( !obj.is(":animated") ) {
+                        obj.animate({rotate: '-='+fullRotate+'deg'}, o.speed);
+                    }
+                });
+                $(o.prev).click(function() {
+                    if( !obj.is(":animated") ) {
+                        obj.animate({rotate: '+='+fullRotate+'deg'}, o.speed);
+                    }
+                });
+
             });
 
             // helper function
-            function sin(theta) { return Math.sin(theta * Math.PI/180) } //soh
-            function cos(theta) { return Math.cos(theta * Math.PI/180) } //cah
+            function cos(theta) { return r(Math.cos(theta * Math.PI/180)) } //cah
             function tan(theta) { return Math.tan(theta * Math.PI/180) } //toa
-            function r(r) { return Math.round(r) } // rounding
+            function r(r) { return Math.round(r ) } // rounding and eg: to decimal round it to 5 decimal (r *100000 ) /100000
         }
     });
 })(jQuery); //end menu
 
         $(document).ready(function() {
-            $('#spinner').devRoulette();
-            $('#spinner') .click(function() {
-            $(this).animate({rotate: '+=120deg'}, 800); });
+            $('#spinner').devRoulette({
+                speed:1500,
+                next : '#n',
+                prev : '#p'
+            });
         });
     </script>
     </head>
     <body> 
         <div id="spinner">
-            <div class="box one"><img src="img/1.jpg"/></div>
-            <div class="box two"><img src="img/2.jpg"/></div>
-            <div class="box three"><img src="img/3.jpg"/></div>
-            <div class="box three"><img src="img/3.jpg"/></div>
+            <div class="box"><img src="img/1.jpg"/></div>
+            <div class="box"><img src="img/2.jpg"/></div>
+            <div class="box"><img src="img/3.jpg"/></div>
+            <div class="box"><img src="img/3.jpg"/></div>
+            <div class="box"><img src="img/4.jpg"/></div>
         </div>
+        <div id="n">next</div>
+        <div id="p">prev</div>
     </body>
 </html>
