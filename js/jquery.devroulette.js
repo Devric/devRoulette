@@ -5,6 +5,7 @@
                 speed : 1000,
                 next : '#next',
                 prev : '#prev'
+                //todo add initial start position
             };
             var options = $.extend(defaults, options);
             return this.each(function(){
@@ -20,22 +21,27 @@
                     c = 360;                          // full circle
                     
 
-                if( bn <= 2 ) {} else { } // ============== todo
+                if( bn <= 2 ) {
+                    // if just boxes, we only need a 180 turn
+                    var fullRotate = 180,
+                        diameter = bh * 2;
+                
+                } else {
+                    // calculations
+                    var fullRotate = c / bn,    // calculate number of equal rotation from the midpoint of each box
+                        theta = fullRotate / 2, // theta, half of two midpoints, depending on number of boxes
 
-                // calculations
-                var fullRotate = c / bn,    // calculate number of equal rotation from the midpoint of each box
-                    theta = fullRotate / 2, // theta, half of two midpoints, depending on number of boxes
+                        //inner radius
+                        innerRadius = (bw / 2 )/ tan(theta),   // get adjcent(inner radius) by opposite dvide by tan0
 
-                    //inner radius
-                    innerRadius = (bw / 2 )/ tan(theta),   // get adjcent(inner radius) by opposite dvide by tan0
-
-                    // get outer radius
-                    fullHeight = innerRadius + bh;         // inner radius + box height
+                        // get outer radius
+                        fullHeight = innerRadius + bh;         // inner radius + box height
+                        
+                        // get full radius
+                        fullRadius = fullHeight/cos(theta),    // adjcent divide cos0 = hypothenus
+                        diameter = fullRadius * 2;
+                } // end if
                     
-                    // get full radius
-                    fullRadius = fullHeight/cos(theta),    // adjcent divide cos0 = hypothenus
-                    diameter = fullRadius * 2;
-
                 // positioning
                 obj.css({  
                     // print the container size
@@ -48,7 +54,7 @@
                 box
                 .css({
                     'margin-left': (diameter - bw ) / 2 // calculat left margin by (diameter - boxwidth) /2
-                    })
+                })
                 .wrap('<div class="boxparent"></div>');
                 $('.boxparent').each(function(index){
                     var thisIndex = $(this).index(),
