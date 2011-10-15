@@ -9,17 +9,15 @@
             };
             var options = $.extend(defaults, options);
             return this.each(function(){
-                var o = options; //use it by o.animatePadding
-                
+                var o = options;
 
-                //assign current element to var
+                //assign default vars
                 var obj = $(this),
                     box = obj.find('.box'),
-                    bn = box.find('img').length,      // box number
-                    bw = box.width(),                 // box width
-                    bh = box.height(),                // box height
-                    c = 360;                          // full circle
-                    
+                    bn = box.find('img').length,// box number
+                    bw = box.width(),           // box width
+                    bh = box.height(),          // box height
+                    c = 360;                    // full circle
 
                 if( bn <= 2 ) {
                     // if just boxes, we only need a 180 turn
