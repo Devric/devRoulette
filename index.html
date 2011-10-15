@@ -8,12 +8,14 @@
         <script src="js/jquery.css.transform.patch.js"></script>
     <style type="text/css">
         * { margin:0; padding:0;  }
-        #spinner img { width:120px; height:auto }
+        #spinner { position:relative; }
         #spinner .box { 
             width: 100px;
             height:60px;
             overflow:hidden;
+            position:absolute;
         }
+        #spinner img { width:120px; height:auto }
     </style>
     <script type="text/javascript">
 
@@ -53,10 +55,21 @@
                     fullRadius = fullHeight/sin(theta),    // adjcent divide cos0 = hypothenus
                     diameter = fullRadius * 2;
 
-                $(this).css({  
+                //positioning
+                obj.css({  
                     // print the container size
                     width:r(diameter),
                     height:r(diameter)
+                });
+
+                box 
+                .css({
+                    'margin-left': r((diameter - bw ) / 2) // calculat left margin by (diameter - boxwidth) /2
+                    })
+                .each(function(index){
+                    var thisIndex = $(this).index(),
+                        thisRotation = thisIndex * fullRotate;
+                    $(this).css('transform','rotate( '+thisRotation+'deg)');
                 });
 
             });
@@ -72,14 +85,18 @@
 
         $(document).ready(function() {
             $('#spinner').devRoulette();
+
+            //test
+           // $('.box.two') .css('transform','rotate(120deg)');
+           // $('.box.three') .css('transform','rotate(240deg)');
         });
     </script>
     </head>
     <body> 
         <div id="spinner">
-            <div class="box"><img src="img/1.jpg"/></div>
-            <div class="box"><img src="img/2.jpg"/></div>
-            <div class="box"><img src="img/3.jpg"/></div>
+            <div class="box one"><img src="img/1.jpg"/></div>
+            <div class="box two"><img src="img/2.jpg"/></div>
+            <div class="box three"><img src="img/3.jpg"/></div>
         </div>
     </body>
 </html>
