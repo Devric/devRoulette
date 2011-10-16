@@ -1,9 +1,13 @@
-demo: devric.co.cc/lab/devroulette
-click the image after its loaded you will see the magic
+#### demo: http://devric.co.cc/lab/devroulette
+---
 
-### Description
-just a concept, plan to build this into a plugin when the Math part is all figured out!
-would love some help if you are one of the .Math() guru
+### Info
+rotational slideshow, auto calculate rotary depending on number of elements within the selector.
+
+#### todo
+- redesign the plugin.
+- add option: initial position
+- add option: dev mode (slides background red)
 
 required scripts from zachstronaut :
 - jquery-css-transform
