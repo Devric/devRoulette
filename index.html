@@ -27,8 +27,8 @@
         $(document).ready(function() {
             $('#spinner').devRoulette({
                 speed:1500,
-                next : '#n',
-                prev : '#p'
+                next :'#n',
+                prev :'#p'
             });
         });
     </script>
@@ -41,7 +41,32 @@
         </div>
         <div id="n">next</div>
         <div id="p">prev</div>
-        todo
+        <h2>todo</h2>
         //add start position
+        <h2>replanning plugin selectors</h2>
+<pre> 
+html structure :
+
+#idcontainer
+    div: overflow:hidden, to control image auto sizing
+
+jquery dom actions:
+variables-
+- obj = selctor
+- box = selector .child
+- bh = box.height
+- bw = box.width
+
+> box.length ~ find the number of boxes
+> find width/height of the box
+
+> .box.wrap(.spin) ~ spin div should be same dimension with obj (calculated by diameter)
+
+ideas:
+shorten html to only just selector>img
+bh and bw are defined in the options
+and wrap the img with .spin and .box with options of o.bw, o.bh
+
+</pre>
     </body>
 </html>
