@@ -37,7 +37,7 @@
                         
                         // get full radius
                         fullRadius = fullHeight/cos(theta),    // adjcent divide cos0 = hypothenus
-                        diameter = fullRadius * 2;
+                        diameter = r(fullRadius * 2);
                 } // end if
                     
                 // positioning
@@ -53,7 +53,7 @@
                 .css({
                     'margin-left': (diameter - bw ) / 2 // calculat left margin by (diameter - boxwidth) /2
                 })
-                .wrap('<div class="boxparent"></div>');
+                .wrap('<div class="boxparent" style="width:'+diameter+';height:'+diameter+';"></div>');
                 $('.boxparent').each(function(index){
                     var thisIndex = $(this).index(),
                         thisRotation = thisIndex * fullRotate;
